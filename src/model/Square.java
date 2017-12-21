@@ -9,7 +9,7 @@ public class Square {
 	Wall eastWall;
 	Wall westWall;
 	SquareObject object;
-	
+
 	public Square(Wall northWall, Wall southWall, Wall eastWall, Wall westWall, SquareObject object) {
 		super();
 		this.northWall = northWall;
@@ -43,11 +43,15 @@ public class Square {
 		return westWall;
 	}
 
+	public SquareObject getObject() {
+		return this.object;
+	}
+
 	@Override
 	public String toString() {
-		try{
+		try {
 			return object.toString();
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			return "   ";
 		}
 	}
