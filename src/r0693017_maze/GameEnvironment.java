@@ -21,6 +21,7 @@ public class GameEnvironment {
 		Maze baseMaze = readMaze("MidiMaze.txt");
 		try{
 			System.out.println(baseMaze.toString());
+			
 		}catch (Exception e) {
 			System.out.println("Error");
 			e.printStackTrace(System.out);

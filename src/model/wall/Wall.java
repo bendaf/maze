@@ -1,4 +1,4 @@
-package model;
+package model.wall;
 
 public class Wall {
 	boolean isHorizontal;

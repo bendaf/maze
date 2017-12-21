@@ -1,4 +1,4 @@
-package model;
+package model.squareobject;
 
 public class End extends SquareObject {
 

@@ -4,18 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import model.BreakableWall;
-import model.Door;
-import model.End;
-import model.FakeWall;
-import model.Hammer;
-import model.Key;
 import model.Maze;
-import model.NoWall;
 import model.Square;
-import model.SquareObject;
-import model.Start;
-import model.Wall;
+import model.squareobject.End;
+import model.squareobject.Hammer;
+import model.squareobject.Key;
+import model.squareobject.SquareObject;
+import model.squareobject.Start;
+import model.wall.BreakableWall;
+import model.wall.Door;
+import model.wall.FakeWall;
+import model.wall.NoWall;
+import model.wall.Wall;
 
 public class MazeSerializer {
 	public Maze deserializeMaze(BufferedReader mazeReader) throws IOException {

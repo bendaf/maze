@@ -1,5 +1,8 @@
 package model;
 
+import model.squareobject.SquareObject;
+import model.wall.Wall;
+
 public class Square {
 	Wall northWall;
 	Wall southWall;
