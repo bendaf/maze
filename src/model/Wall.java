@@ -8,5 +8,9 @@ public class Wall {
 		this.isHorizontal = isHorizontal;
 	}
 
+	@Override
+	public String toString() {
+		return isHorizontal ? "---" : "|";
+	}
 
 }

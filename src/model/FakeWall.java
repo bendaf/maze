@@ -6,4 +6,9 @@ public class FakeWall extends Wall {
 		super(isHorizontal);
 	}
 
+	@Override
+	public String toString() {
+		return isHorizontal ? "-f-" : "f";
+	}
+
 }

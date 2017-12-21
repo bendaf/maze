@@ -18,11 +18,12 @@ public class GameEnvironment {
 	}
 
 	public static void main(String[] args) {
-		Maze baseMaze = readMaze("BaseMaze.txt");
+		Maze baseMaze = readMaze("MidiMaze.txt");
 		try{
 			System.out.println(baseMaze.toString());
 		}catch (Exception e) {
 			System.out.println("Error");
+			e.printStackTrace(System.out);
 		}
 	}
 

@@ -23,4 +23,29 @@ public class Square {
 		this.eastWall = new Wall(false);
 		this.westWall = new Wall(false);
 	}
+
+	public Wall getNorthWall() {
+		return northWall;
+	}
+
+	public Wall getSouthWall() {
+		return southWall;
+	}
+
+	public Wall getEastWall() {
+		return eastWall;
+	}
+
+	public Wall getWestWall() {
+		return westWall;
+	}
+
+	@Override
+	public String toString() {
+		try{
+			return object.toString();
+		}catch (NullPointerException e) {
+			return "   ";
+		}
+	}
 }

@@ -6,4 +6,9 @@ public class Door extends Wall {
 		super(isHorizontal);
 	}
 
+	@Override
+	public String toString() {
+		return isHorizontal ? "-d-" : "d";
+	}
+
 }
