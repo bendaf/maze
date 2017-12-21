@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import model.squareobject.End;
 import model.squareobject.SquareObject;
 import model.squareobject.Start;
-import model.wall.FakeWall;
-import model.wall.NoWall;
-import model.wall.Wall;
 
 public class Maze {
 	private ArrayList<ArrayList<Square>> squares = new ArrayList<>();
@@ -60,9 +57,12 @@ public class Maze {
 			}
 			break;
 		}
+		if (squares.get(playerX).get(playerY).getObject() != null) {
+			possession.add(squares.get(playerX).get(playerY).getObject());
+		}
 	}
-	
-	public boolean isEndReached(){
+
+	public boolean isEndReached() {
 		if (squares.get(playerX).get(playerY).getObject() instanceof End) {
 			return true;
 		}
@@ -100,6 +100,14 @@ public class Maze {
 			}
 			mazeString.append("+");
 		}
+		mazeString.append('\n');
+		mazeString.append("Your possession contains:");
+		for (SquareObject o : possession) {
+			mazeString.append(o.toString() + ". ");
+		}
+		mazeString.append('\n');
+		mazeString.append("Steps: ");
+		mazeString.append(playerSteps);
 		return mazeString.toString();
 	}
 }
