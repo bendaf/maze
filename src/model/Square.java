@@ -18,9 +18,9 @@ public class Square {
 
 	public Square() {
 		super();
-		this.northWall = new Wall();
-		this.southWall = new Wall();
-		this.eastWall = new Wall();
-		this.westWall = new Wall();
+		this.northWall = new Wall(true);
+		this.southWall = new Wall(true);
+		this.eastWall = new Wall(false);
+		this.westWall = new Wall(false);
 	}
 }
