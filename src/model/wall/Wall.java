@@ -1,5 +1,9 @@
 package model.wall;
 
+import java.util.ArrayList;
+
+import model.squareobject.SquareObject;
+
 public class Wall {
 	boolean isHorizontal;
 
@@ -11,6 +15,10 @@ public class Wall {
 	@Override
 	public String toString() {
 		return isHorizontal ? "---" : "|";
+	}
+
+	public boolean canCross(ArrayList<SquareObject> possession) {
+		return false;
 	}
 
 }
