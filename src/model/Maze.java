@@ -8,23 +8,24 @@ import model.squareobject.Start;
 
 /**
  * This class represents the maze.
+ * 
  * @author Felicián
  *
  */
 public class Maze {
 	// This double list represents the squares of the maze
 	private ArrayList<ArrayList<Square>> squares = new ArrayList<>();
-	
+
 	// The position of the player
 	private int playerX = 0;
 	private int playerY = 0;
-	
+
 	// The steps taken by the player
 	private int playerSteps = 0;
-	
+
 	// The possession of the player
 	private ArrayList<Pickable> possession = new ArrayList<>();
-	
+
 	// The name of the maze
 	private String mazeName;
 
@@ -47,17 +48,16 @@ public class Maze {
 		this.squares = original.squares;
 		this.playerSteps = original.playerSteps;
 		this.possession = new ArrayList<>(original.possession);
+		this.mazeName = original.mazeName;
 	}
 
 	/**
 	 * Makes a step with the player in the maze.
-	 * @param step the step of the player. Can be: 
-	 * 		w - up
-	 * 		a - left
-	 * 		s - down
-	 * 		d - right
-	 *  If other character is given than no steps will be made. 
-	 *	
+	 * 
+	 * @param step
+	 *            the step of the player. Can be: w - up a - left s - down d -
+	 *            right If other character is given than no steps will be made.
+	 * 
 	 */
 	public void makeStep(char step) {
 		playerSteps++;
@@ -103,7 +103,7 @@ public class Maze {
 	public int getPlayerSteps() {
 		return playerSteps;
 	}
-	
+
 	public String getMazeName() {
 		return mazeName;
 	}
@@ -160,7 +160,27 @@ public class Maze {
 		if (!(obj instanceof Maze)) {
 			return false;
 		}
-		return (playerX == ((Maze) obj).playerX && playerY == ((Maze) obj).playerY);
+		return (playerX == ((Maze) obj).playerX && playerY == ((Maze) obj).playerY)
+				&& isPossessionEquals(((Maze) obj).possession);
 	}
 
+	private boolean isPossessionEquals(ArrayList<Pickable> possession2) {
+		// null checking
+		if (possession == null && possession2 == null)
+			return true;
+		if ((possession == null && possession2 != null) || (possession != null && possession2 == null))
+			return false;
+		
+		for(Pickable item: possession)
+        {
+            if(!possession2.contains(item))
+                return false;
+        }
+		for(Pickable item: possession2)
+        {
+            if(!possession.contains(item))
+                return false;
+        }
+		return true;
+	}
 }
