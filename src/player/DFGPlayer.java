@@ -23,9 +23,7 @@ public class DFGPlayer implements Player {
 		}
 		if (finalStep == null) {
 			finalStep = 'b';
-			try {
-				TestState.makeStep(finalStep);
-			} catch (ArrayIndexOutOfBoundsException e) {
+			if (state.equals(previousStates.get(0))) {
 				finalStep = 'q';
 			}
 		}
