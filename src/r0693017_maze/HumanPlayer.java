@@ -1,26 +1,42 @@
 package r0693017_maze;
 
-import java.io.IOException;
+import java.util.Scanner;
 
 import model.Maze;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer implements Player {
+	String playername;
+	Scanner scanner;
 
-	public char getStep(Maze state) {
-		char c = 'q';
-		try {
-			System.out.println(state.toString());
-			do {
-				if(c != '\n' && c != '\r'){
-					System.out.println("Please select w (up), a(left), s(down), d(right), b(back), q(quit)."
-							+ " Multiple steps are possible.");
-				}
-				c = (char) System.in.read();
-			} while (c != 'w' && c != 'a' && c != 's' && c != 'd' && c != 'q' && c != 'b');
-			System.out.println(c);
-		} catch (IOException e) {
-			e.printStackTrace();
+	public HumanPlayer(Scanner s) {
+		this.scanner = s;
+		while (this.playername == null) {
+			System.out.println("Please type your name: ");
+			this.playername = s.nextLine();
 		}
-		return c;
+	}
+
+	@Override
+	public char getStep(Maze state) {
+		System.out.println(state.toString());
+		Character step = null;
+		while (step == null) {
+			System.out.println("Please select w (up), a(left), s(down), d(right), b(back), q(quit).");
+			String input = scanner.nextLine();
+			for (char c : input.toCharArray()) {
+				if (c == 'w' || c == 'a' || c == 's' || c == 'd' || c == 'q' || c == 'b') {
+					step = c;
+					break;
+				}
+			}
+		}
+		System.out.println(step);
+
+		return step;
+	}
+
+	@Override
+	public String getName() {
+		return playername;
 	}
 }

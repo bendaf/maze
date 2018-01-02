@@ -69,6 +69,10 @@ public class Maze {
 		return false;
 	}
 
+	public int getPlayerSteps() {
+		return playerSteps;
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer mazeString = new StringBuffer();
