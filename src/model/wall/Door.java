@@ -3,7 +3,7 @@ package model.wall;
 import java.util.ArrayList;
 
 import model.squareobject.Key;
-import model.squareobject.SquareObject;
+import model.squareobject.Pickable;
 
 public class Door extends Wall {
 
@@ -12,8 +12,8 @@ public class Door extends Wall {
 	}
 	
 	@Override
-	public boolean canCross(ArrayList<SquareObject> possession) {
-		for(SquareObject o : possession){
+	public boolean canCross(ArrayList<Pickable> possession) {
+		for(Pickable o : possession){
 			if(o instanceof Key) 
 				return true;
 		}

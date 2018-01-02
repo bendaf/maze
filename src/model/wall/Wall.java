@@ -2,7 +2,7 @@ package model.wall;
 
 import java.util.ArrayList;
 
-import model.squareobject.SquareObject;
+import model.squareobject.Pickable;
 
 public class Wall {
 	boolean isHorizontal;
@@ -17,7 +17,7 @@ public class Wall {
 		return isHorizontal ? "---" : "|";
 	}
 
-	public boolean canCross(ArrayList<SquareObject> possession) {
+	public boolean canCross(ArrayList<Pickable> possession) {
 		return false;
 	}
 

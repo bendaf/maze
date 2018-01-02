@@ -1,10 +1,10 @@
 package model.squareobject;
 
-public class Hammer extends SquareObject {
+public class Hammer extends SquareObject implements Pickable{
 
 	@Override
-	public String toString() {
-		return " H ";
+	public String getName() {
+		return "hammer";
 	}
 
 }

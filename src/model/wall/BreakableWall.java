@@ -3,7 +3,7 @@ package model.wall;
 import java.util.ArrayList;
 
 import model.squareobject.Hammer;
-import model.squareobject.SquareObject;
+import model.squareobject.Pickable;
 
 public class BreakableWall extends Wall {
 
@@ -12,8 +12,8 @@ public class BreakableWall extends Wall {
 	}
 	
 	@Override
-	public boolean canCross(ArrayList<SquareObject> possession) {
-		for (SquareObject o : possession){
+	public boolean canCross(ArrayList<Pickable> possession) {
+		for (Pickable o : possession){
 			if (o instanceof Hammer)
 				return true;
 		}

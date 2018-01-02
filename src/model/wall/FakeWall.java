@@ -2,7 +2,7 @@ package model.wall;
 
 import java.util.ArrayList;
 
-import model.squareobject.SquareObject;
+import model.squareobject.Pickable;
 
 public class FakeWall extends Wall {
 
@@ -11,13 +11,7 @@ public class FakeWall extends Wall {
 	}
 	
 	@Override
-	public boolean canCross(ArrayList<SquareObject> possession) {
+	public boolean canCross(ArrayList<Pickable> possession) {
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return isHorizontal ? "-f-" : "f";
-	}
-
 }

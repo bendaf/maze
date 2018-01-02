@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import model.squareobject.End;
+import model.squareobject.Pickable;
 import model.squareobject.SquareObject;
 import model.squareobject.Start;
 
@@ -11,7 +12,7 @@ public class Maze {
 	private int playerX = 0;
 	private int playerY = 0;
 	private int playerSteps = 0;
-	private ArrayList<SquareObject> possession = new ArrayList<>();
+	private ArrayList<Pickable> possession = new ArrayList<>();
 
 	public Maze(ArrayList<ArrayList<Square>> newSquares) {
 		this.squares = newSquares;
@@ -57,8 +58,9 @@ public class Maze {
 			}
 			break;
 		}
-		if (squares.get(playerX).get(playerY).getObject() != null) {
-			possession.add(squares.get(playerX).get(playerY).getObject());
+		if (squares.get(playerX).get(playerY).getObject() != null
+				&& squares.get(playerX).get(playerY).getObject() instanceof Pickable) {
+			possession.add((Pickable) squares.get(playerX).get(playerY).getObject());
 		}
 	}
 
@@ -105,10 +107,12 @@ public class Maze {
 			mazeString.append("+");
 		}
 		mazeString.append('\n');
-		mazeString.append("Your possession contains:");
-		for (SquareObject o : possession) {
-			mazeString.append(o.toString() + ". ");
+		mazeString.append("Your possession contains: ");
+		for (Pickable o : possession) {
+			mazeString.append(o.getName() + ", ");
 		}
+		if (!possession.isEmpty())
+			mazeString.delete(mazeString.length() - 2, mazeString.length());
 		mazeString.append('\n');
 		mazeString.append("Steps: ");
 		mazeString.append(playerSteps);

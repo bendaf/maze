@@ -1,10 +1,10 @@
 package model.squareobject;
 
-public class Key extends SquareObject {
+public class Key extends SquareObject implements Pickable {
 
 	@Override
-	public String toString() {
-		return " K ";
+	public String getName() {
+		return "key";
 	}
 
 }
