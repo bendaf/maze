@@ -114,4 +114,16 @@ public class Maze {
 		mazeString.append(playerSteps);
 		return mazeString.toString();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Maze)) {
+			return false;
+		}
+		return (playerX == ((Maze) obj).playerX && playerY == ((Maze) obj).playerY);
+	}
+
 }
