@@ -19,54 +19,58 @@ public class GameEnvironment {
 
 	public static void main(String[] args) {
 		System.out.println("Hi, this is the MazeGame!");
-
 		Scanner scanner = new Scanner(System.in);
-		// Select player
 
-		Player player = getPlayer(scanner);
-
-		newGameWithPlayer(player, scanner);
+		newGame(scanner);
+		
 		scanner.close();
 	}
 
-	public static void newGameWithPlayer(Player player, Scanner scanner) {
+	public static void newGame(Scanner scanner) {
+		// Select player
+		Player player = getPlayer(scanner);
+		
 		// Read the maze name
 		String mazeName = getMazeName(scanner);
 
 		// Initialization
-		Maze maze = readMaze(mazeName + ".txt");
+		Maze maze = readMaze(mazeName);
 		ArrayList<Maze> history = new ArrayList<>();
 
 		// Game
-		char step = 'q';
-		while (!maze.isEndReached()) {
-			step = player.getStep(new Maze(maze));
-			if (step == 'q')
-				break;
-			if (step == 'b') {
-				try {
-					maze = history.remove(history.size() - 1);
-				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out.println("You cannot go back from the start position!");
+		char step = 'b';
+		if (maze != null) {
+			while (!maze.isEndReached()) {
+				step = player.getStep(new Maze(maze));
+				if (step == 'q')
+					break;
+				if (step == 'b') {
+					try {
+						maze = history.remove(history.size() - 1);
+					} catch (ArrayIndexOutOfBoundsException e) {
+						System.out.println("You cannot go back from the start position!");
+					}
+				} else {
+					history.add(new Maze(maze));
+					maze.makeStep(step);
 				}
-			} else {
-				history.add(new Maze(maze));
-				maze.makeStep(step);
 			}
+		} else {
+			System.out.println("Something went wrong during the maze loading.");
 		}
 
 		// Write to high score
 		writeHighScore(mazeName, player, maze);
 
 		// End
+		System.out.println(
+				"Thank you for playing " + player.getName() + "." + " Your score is " + maze.getPlayerSteps() + ".");
 		if (step != 'q') {
 
-			System.out.println("Thank you for playing " + player.getName() + "." + " Your score is "
-					+ maze.getPlayerSteps() + ".");
 			System.out.println("Would you like to play an another game? (y - yes, else - no)");
 			String in = scanner.nextLine();
 			if (in.equals("y") || in.equals("yes")) {
-				newGameWithPlayer(player, scanner);
+				newGame(scanner);
 			}
 		}
 	}
@@ -102,20 +106,30 @@ public class GameEnvironment {
 
 	public static String getMazeName(Scanner scanner) {
 		System.out.println("In which maze would you like to play?");
-		System.out.println("1 - BaseMaze" + System.lineSeparator() + "2 - MidiMaze");
+		System.out.println("1 - BaseMaze" + System.lineSeparator() + "2 - MidiMaze" + System.lineSeparator()
+				+ "or type your maze name with the extension");
 		Integer in = 0;
+		String mazeName;
 		while (in < 1 || in > 2) {
 			try {
 				in = scanner.nextInt();
 			} catch (InputMismatchException e) {
-				System.out.println("Please write 1 or 2 and press the enter");
+				mazeName = scanner.nextLine();
+				File f = new File(mazeName);
+				if (!f.exists() || f.isDirectory()) {
+					System.out.println("The file does not exists, please try again.");
+				} else {
+					return mazeName;
+				}
 			}
-			scanner.nextLine();
+			if (in != 0) {
+				scanner.nextLine();
+			}
 		}
 		if (in == 1) {
-			return "BaseMaze";
+			return "BaseMaze.txt";
 		}
-		return "MidiMaze";
+		return "MidiMaze.txt";
 	}
 
 	private static void writeHighScore(String mazeName, Player player, Maze maze) {
@@ -132,7 +146,8 @@ public class GameEnvironment {
 					out.append("PLAYERNAME,MAZENAME,NUMBER_OF_STEPS_SOLVED" + System.lineSeparator());
 
 				}
-				out.append(player.getName() + "," + mazeName + "," + maze.getPlayerSteps() + System.lineSeparator());
+				out.append(player.getName() + "," + mazeName.substring(0, mazeName.lastIndexOf(".")) + ","
+						+ maze.getPlayerSteps() + System.lineSeparator());
 				out.close();
 			}
 		} catch (IOException e) {
