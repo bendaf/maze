@@ -6,11 +6,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.Maze;
+import player.DFGPlayer;
 import player.HumanPlayer;
 import player.Player;
+import player.RandomPlayer;
 
 public class GameEnvironment {
 
@@ -19,7 +22,8 @@ public class GameEnvironment {
 
 		Scanner scanner = new Scanner(System.in);
 		// Select player
-		Player player = new HumanPlayer(scanner);
+
+		Player player = getPlayer(scanner);
 
 		newGameWithPlayer(player, scanner);
 		scanner.close();
@@ -36,11 +40,15 @@ public class GameEnvironment {
 		// Game
 		char step = 'q';
 		while (!maze.isEndReached()) {
-			step = player.getStep(maze);
+			step = player.getStep(new Maze(maze));
 			if (step == 'q')
 				break;
 			if (step == 'b') {
-				maze = history.remove(history.size() - 1);
+				try {
+					maze = history.remove(history.size() - 1);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.out.println("You cannot go back from the start position!");
+				}
 			} else {
 				history.add(new Maze(maze));
 				maze.makeStep(step);
@@ -71,13 +79,38 @@ public class GameEnvironment {
 		}
 	}
 
-	public static String getMazeName(Scanner s) {
+	public static Player getPlayer(Scanner scanner) {
+		System.out.println("With which player would you like to play?");
+		System.out.println("1 - HumanPlayer" + System.lineSeparator() + "2 - RandomPlayer" + System.lineSeparator()
+				+ "3 - DepthGoingPlayer");
+		Integer in = 0;
+		while (in < 1 || in > 3) {
+			try {
+				in = scanner.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("Please write 1 or 2 and press the enter");
+			}
+			scanner.nextLine();
+		}
+		if (in == 1) {
+			return new HumanPlayer(scanner);
+		} else if (in == 2) {
+			return new RandomPlayer();
+		}
+		return new DFGPlayer();
+	}
+
+	public static String getMazeName(Scanner scanner) {
 		System.out.println("In which maze would you like to play?");
 		System.out.println("1 - BaseMaze" + System.lineSeparator() + "2 - MidiMaze");
 		Integer in = 0;
 		while (in < 1 || in > 2) {
-			in = s.nextInt();
-			s.nextLine();
+			try {
+				in = scanner.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("Please write 1 or 2 and press the enter");
+			}
+			scanner.nextLine();
 		}
 		if (in == 1) {
 			return "BaseMaze";
