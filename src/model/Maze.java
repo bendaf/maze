@@ -4,17 +4,32 @@ import java.util.ArrayList;
 
 import model.squareobject.End;
 import model.squareobject.Pickable;
-import model.squareobject.SquareObject;
 import model.squareobject.Start;
 
+/**
+ * This class represents the maze.
+ * @author Felicián
+ *
+ */
 public class Maze {
+	// This double list represents the squares of the maze
 	private ArrayList<ArrayList<Square>> squares = new ArrayList<>();
+	
+	// The position of the player
 	private int playerX = 0;
 	private int playerY = 0;
+	
+	// The steps taken by the player
 	private int playerSteps = 0;
+	
+	// The possession of the player
 	private ArrayList<Pickable> possession = new ArrayList<>();
+	
+	// The name of the maze
+	private String mazeName;
 
-	public Maze(ArrayList<ArrayList<Square>> newSquares) {
+	public Maze(String mazeName, ArrayList<ArrayList<Square>> newSquares) {
+		this.mazeName = mazeName;
 		this.squares = newSquares;
 		for (int i = 0; i < squares.size(); i++) {
 			for (int j = 0; j < squares.get(i).size(); j++) {
@@ -34,6 +49,16 @@ public class Maze {
 		this.possession = new ArrayList<>(original.possession);
 	}
 
+	/**
+	 * Makes a step with the player in the maze.
+	 * @param step the step of the player. Can be: 
+	 * 		w - up
+	 * 		a - left
+	 * 		s - down
+	 * 		d - right
+	 *  If other character is given than no steps will be made. 
+	 *	
+	 */
 	public void makeStep(char step) {
 		playerSteps++;
 		switch (step) {
@@ -64,6 +89,10 @@ public class Maze {
 		}
 	}
 
+	/**
+	 * 
+	 * @return true if the player have reached the end of the {@link Maze}
+	 */
 	public boolean isEndReached() {
 		if (squares.get(playerX).get(playerY).getObject() instanceof End) {
 			return true;
@@ -73,6 +102,10 @@ public class Maze {
 
 	public int getPlayerSteps() {
 		return playerSteps;
+	}
+	
+	public String getMazeName() {
+		return mazeName;
 	}
 
 	@Override

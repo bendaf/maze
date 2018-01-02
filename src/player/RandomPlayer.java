@@ -4,7 +4,12 @@ import java.util.Random;
 
 import model.Maze;
 
-public class RandomPlayer implements Player {
+/**
+ * Makes a random move in each step.
+ * @author Felicián
+ *
+ */
+public class RandomPlayer implements PlayerInterface {
 
 	private Random rand;
 

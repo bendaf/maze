@@ -2,8 +2,14 @@ package model.wall;
 
 import java.util.ArrayList;
 
+import model.Maze;
 import model.squareobject.Pickable;
 
+/**
+ * Only classes extended from {@link Wall} can be walls of the {@link Maze}.
+ * @author Felicián
+ *
+ */
 public class Wall {
 	boolean isHorizontal;
 

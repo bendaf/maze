@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 import model.Maze;
 
-public class HumanPlayer implements Player {
+public class HumanPlayer implements PlayerInterface {
+	// The name of the player
 	String playername;
+	
+	// The scanner which the player will use
 	Scanner scanner;
 
 	public HumanPlayer(Scanner s) {
@@ -18,7 +21,11 @@ public class HumanPlayer implements Player {
 
 	@Override
 	public char getStep(Maze state) {
+		
+		// Show the maze
 		System.out.println(state.toString());
+		
+		// Read in a possible step with the scanner
 		Character step = null;
 		while (step == null) {
 			System.out.println("Please select w (up), a(left), s(down), d(right), b(back), q(quit).");
@@ -30,6 +37,8 @@ public class HumanPlayer implements Player {
 				}
 			}
 		}
+		
+		// Confirm the step
 		System.out.println(step);
 
 		return step;

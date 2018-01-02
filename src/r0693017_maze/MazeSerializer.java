@@ -17,8 +17,25 @@ import model.wall.FakeWall;
 import model.wall.NoWall;
 import model.wall.Wall;
 
+/**
+ * This class can deserialize the {@link Maze}
+ * 
+ * @author Felicián
+ *
+ */
 public class MazeSerializer {
-	public Maze deserializeMaze(BufferedReader mazeReader) throws IOException {
+
+	/**
+	 * Deserialize the {@link Maze} from an input {@link BufferedReader}.
+	 * 
+	 * @param mazeName
+	 *            The name of the maze which will be serialized.
+	 * @param mazeReader
+	 *            A {@link BufferedReader} which will read in the {@link Maze}
+	 * @return The initialized {@link Maze} object.
+	 * @throws IOException
+	 */
+	public Maze deserializeMaze(String mazeName, BufferedReader mazeReader) throws IOException {
 		String line = mazeReader.readLine();
 		ArrayList<ArrayList<Square>> newSquares = new ArrayList<>();
 		while ((line = mazeReader.readLine()) != null) {
@@ -39,10 +56,20 @@ public class MazeSerializer {
 			newSquares.get(xCoord).set(yCoord, newSquare);
 
 		}
-		Maze newMaze = new Maze(newSquares);
+		Maze newMaze = new Maze(mazeName, newSquares);
 		return newMaze;
 	}
 
+	/**
+	 * Initializes a {@link Wall} object from the wallType string and the type
+	 * of the wall. In default it returns a horizontal {@link NoWall}.
+	 * 
+	 * @param wallType
+	 *            {@link String} which can be "wall", "breakable", "fake",
+	 *            "door" or "no".
+	 * @param isHorizontal weather the wall is a horizontal or vertical {@link Wall}
+	 * @return a {@link Wall} object.
+	 */
 	private Wall getWall(String wallType, Boolean isHorizontal) {
 		if (wallType.equals("wall"))
 			return new Wall(isHorizontal);
@@ -56,6 +83,11 @@ public class MazeSerializer {
 		return new NoWall(isHorizontal);
 	}
 
+	/**
+	 * Initializes a {@link SquareObject} from the square type string. If the square is empty it returns null
+	 * @param objectType {@link String} which can be "S", "start", "E", "end", "key" and "hammer". 
+	 * @return an initialized {@link SquareObject}
+	 */
 	private SquareObject getObject(String objectType) {
 		if (objectType.equals("S") || objectType.equals("start")) {
 			return new Start();

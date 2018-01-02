@@ -3,6 +3,13 @@ package model;
 import model.squareobject.SquareObject;
 import model.wall.Wall;
 
+/**
+ * This class represents a square of the {@link Maze}. A {@link Square} have
+ * four {@link Walls} and one {@link SquareObject}
+ * 
+ * @author Felicián
+ *
+ */
 public class Square {
 	Wall northWall;
 	Wall southWall;

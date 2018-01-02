@@ -12,9 +12,13 @@ import java.util.Scanner;
 import model.Maze;
 import player.DFGPlayer;
 import player.HumanPlayer;
-import player.Player;
+import player.PlayerInterface;
 import player.RandomPlayer;
 
+/**
+ * @author Felicián
+ * This is the main class running the game
+ */
 public class GameEnvironment {
 
 	public static void main(String[] args) {
@@ -25,20 +29,22 @@ public class GameEnvironment {
 		
 		scanner.close();
 	}
-
+	
+	/**
+	 * This method is for creating a new game.
+	 * @param scanner is an opened scanner which supplies the input for the game.
+	 */
 	public static void newGame(Scanner scanner) {
 		// Select player
-		Player player = getPlayer(scanner);
+		PlayerInterface player = getPlayer(scanner);
+
+		// Get maze 
+		Maze maze = getMaze(scanner);
 		
-		// Read the maze name
-		String mazeName = getMazeName(scanner);
-
 		// Initialization
-		Maze maze = readMaze(mazeName);
 		ArrayList<Maze> history = new ArrayList<>();
-
-		// Game
 		char step = 'b';
+		
 		if (maze != null) {
 			while (!maze.isEndReached()) {
 				step = player.getStep(new Maze(maze));
@@ -60,7 +66,7 @@ public class GameEnvironment {
 		}
 
 		// Write to high score
-		writeHighScore(mazeName, player, maze);
+		writeHighScore(maze.getMazeName(), player, maze);
 
 		// End
 		System.out.println(
@@ -75,15 +81,26 @@ public class GameEnvironment {
 		}
 	}
 
-	public static Maze readMaze(String fileName) {
+	/**
+	 * This file asks for which maze should be used in the game and reads in the maze.
+	 * @param scanner is an opened scanner which supplies the input for the game.
+	 * @return The initialized {@link Maze} object.
+	 */
+	public static Maze getMaze(Scanner scanner) {
+		String fileName = getMazeName(scanner);
 		try (BufferedReader is = new BufferedReader(new FileReader(new File(fileName)))) {
-			return new MazeSerializer().deserializeMaze(is);
+			return (new MazeSerializer()).deserializeMaze(fileName.substring(0,fileName.lastIndexOf(".")), is);
 		} catch (IOException e) {
 			return null;
 		}
 	}
 
-	public static Player getPlayer(Scanner scanner) {
+	/**
+	 * Selects which player should be used.
+	 * @param scanner is an opened scanner which supplies the input for the game.
+	 * @return The initialized player.
+	 */
+	public static PlayerInterface getPlayer(Scanner scanner) {
 		System.out.println("With which player would you like to play?");
 		System.out.println("1 - HumanPlayer" + System.lineSeparator() + "2 - RandomPlayer" + System.lineSeparator()
 				+ "3 - DepthGoingPlayer");
@@ -104,6 +121,11 @@ public class GameEnvironment {
 		return new DFGPlayer();
 	}
 
+	/**	
+	 * Selects the maze which will be used during the game.
+	 * @param scanner is an opened scanner which supplies the input for the game.
+	 * @return The name of the maze file.
+	 */
 	public static String getMazeName(Scanner scanner) {
 		System.out.println("In which maze would you like to play?");
 		System.out.println("1 - BaseMaze" + System.lineSeparator() + "2 - MidiMaze" + System.lineSeparator()
@@ -132,7 +154,13 @@ public class GameEnvironment {
 		return "MidiMaze.txt";
 	}
 
-	private static void writeHighScore(String mazeName, Player player, Maze maze) {
+	/**
+	 * Write the high score to the "High Score.txt" file.
+	 * @param mazeName The maze which were played.
+	 * @param player The player who played.
+	 * @param maze The {@link Maze} object.
+	 */
+	private static void writeHighScore(String mazeName, PlayerInterface player, Maze maze) {
 		try {
 			if (maze.isEndReached()) {
 				String savestr = "High Score.txt";
