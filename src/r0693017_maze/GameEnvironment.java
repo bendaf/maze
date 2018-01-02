@@ -174,7 +174,7 @@ public class GameEnvironment {
 					out.append("PLAYERNAME,MAZENAME,NUMBER_OF_STEPS_SOLVED" + System.lineSeparator());
 
 				}
-				out.append(player.getName() + "," + mazeName.substring(0, mazeName.lastIndexOf(".")) + ","
+				out.append(player.getName() + "," + mazeName + ","
 						+ maze.getPlayerSteps() + System.lineSeparator());
 				out.close();
 			}
