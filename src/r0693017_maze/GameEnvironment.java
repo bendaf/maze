@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import r0693017_maze.HumanPlayer;
-
 import model.Maze;
+import player.HumanPlayer;
+import player.Player;
 
 public class GameEnvironment {
 

@@ -1,4 +1,4 @@
-package r0693017_maze;
+package player;
 
 import java.util.Scanner;
 
