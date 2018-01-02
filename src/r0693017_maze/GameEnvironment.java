@@ -63,7 +63,7 @@ public class GameEnvironment {
 
 			System.out.println("Thank you for playing " + player.getName() + "." + " Your score is "
 					+ maze.getPlayerSteps() + ".");
-			System.out.println("Would you like to play an another game? (y - yes, else - no");
+			System.out.println("Would you like to play an another game? (y - yes, else - no)");
 			String in = scanner.nextLine();
 			if (in.equals("y") || in.equals("yes")) {
 				newGameWithPlayer(player, scanner);
@@ -118,7 +118,7 @@ public class GameEnvironment {
 		return "MidiMaze";
 	}
 
-	private static void writeHighScore(String mazeName, Player p, Maze maze) {
+	private static void writeHighScore(String mazeName, Player player, Maze maze) {
 		try {
 			if (maze.isEndReached()) {
 				String savestr = "High Score.txt";
@@ -132,7 +132,7 @@ public class GameEnvironment {
 					out.append("PLAYERNAME,MAZENAME,NUMBER_OF_STEPS_SOLVED" + System.lineSeparator());
 
 				}
-				out.append(p.getName() + "," + mazeName + "," + maze.getPlayerSteps() + System.lineSeparator());
+				out.append(player.getName() + "," + mazeName + "," + maze.getPlayerSteps() + System.lineSeparator());
 				out.close();
 			}
 		} catch (IOException e) {
